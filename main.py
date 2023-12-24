@@ -134,13 +134,6 @@ for k, v in counter.items():
 # Divide the data set into Train Set and Test Set.
 X_train, X_test, y_train, y_test = train_test_split(X_sam, y_sam, test_size=0.2, stratify=y_sam, random_state=1)
 
-'''
-from flaml import AutoML
-automl = AutoML()
-automl.fit(X_sam, y_sam, task="classification")
-params = automl.fit(X_sam, y_sam, task="classification", estimator_list=["lgbm"])
-print('Best hyperparmeter config:', automl.best_config)
-'''
 
 scores = evaluate_model(X_sam, y_sam, model)
 print('Score final d’évaluation du modèle')
@@ -161,41 +154,6 @@ y_pred = model.predict(X_test)
 print(confusion_matrix(y_test, y_pred))
 print(classification_report(y_test, y_pred))
 print()
-'''
-# Draw the confusion matrix
-
-def plot_confusion_matrix(cm, classes, normalize=False, title='Matrice de Confusion', cmap=plt.cm.Blues):
-    if normalize:
-        cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
-        print("Matrice de Confusion Normalisée")
-    else:
-        print('Matrice de confusion, Non Normalisée')
-    print(cm)
-
-    plt.imshow(cm, interpolation='nearest', cmap=cmap)
-    plt.title(title)
-    plt.colorbar()
-    tick_marks = np.arange(len(classes))
-    plt.xticks(tick_marks, classes, rotation=45)
-    plt.yticks(tick_marks, classes)
-
-    fmt = '.2f' if normalize else 'd'
-    thresh = cm.max() / 2.
-    for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
-        plt.text(j, i, format(cm[i, j], fmt),
-                 horizontalalignment="center",
-                 color="white" if cm[i, j] > thresh else "black")
-
-    plt.tight_layout()
-    plt.ylabel('Label reel')
-    plt.xlabel('Label predit')
-
-
-cnf_matrix = confusion_matrix(y_test, y_pred)
-class_names = ['- VE', '+ VE']
-np.set_printoptions(precision=2)
-plot_confusion_matrix(cnf_matrix, classes=class_names, normalize=True, title='Matrice de confusion Normalisée')
-plt.show()
 '''
 
 # --------------------------------------------------- #
